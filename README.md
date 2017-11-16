@@ -1,6 +1,12 @@
 # synchronizer
 Synchronizes folder across two systems (master and slave). There is no distinction between master and slave, 
-just that master creates ServerSocket and client connects to it
+just that master creates ServerSocket and client connects to it.
+
+There are few caveats in the current implementation:
+1. Once the connection is disconnected, the system does not establish the connection again and server in both the systems will have to restart. 
+This is because of time constraint and can be taken care of in the next version.
+2. The content of the file is not checked while comparing and only the latest version is kept.
+
 
 Requirements: maven, Java 1.8 or later
 
