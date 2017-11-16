@@ -16,6 +16,7 @@ mvn clean package
 java -classpath "Path to jar file" com.socialcops.main.Main
 
 Configuration can be set by placing the file "config.properties" in the directory from where jar file is executed.
+The program must have write permission to the folder from where it is executing as it will stote log files in the location.
 
 Sample config file:
 # Specifies if the current system is master or slave
