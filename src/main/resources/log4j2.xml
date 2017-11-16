@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="INFO">
+	<!--logFileName is the name for your log file -->
+	<Properties>
+		<Property name="logFileName">samay-protocol</Property>
+	</Properties>
+
+	<Appenders>
+		<!-- Async Loggers will auto-flush in batches, so switch off immediateFlush. -->
+		<RollingRandomAccessFile name="FILE"
+			immediateFlush="false" fileName="logs/${logFileName}.log"
+			filePattern="logs/${logFileName}-%d{MM-dd-yyyy}-%i.log.gz">
+			<RegexFilter regex=".*Request method '.*' not supported$"
+				onMatch="DENY" onMismatch="ACCEPT" />
+			<PatternLayout
+				pattern="%d{dd MMM yyyy HH:mm:ss,SSS} %5p %marker %c{1}:%L - [%X{session}] - %m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy />
+			</Policies>
+		</RollingRandomAccessFile>
+		<Console name="CONSOLE" target="SYSTEM_OUT">
+			<RegexFilter regex=".*Request method '.*' not supported$"
+				onMatch="DENY" onMismatch="ACCEPT" />
+			<PatternLayout
+				pattern="%d{dd MMM yyyy HH:mm:ss,SSS} %5p %marker %c{1}:%L - [%X{session}] - %m%n" />
+		</Console>
+	</Appenders>
+	<Loggers>
+		<!-- pattern layout actually uses location, so we need to include it -->
+		<AsyncRoot level="INFO" includeLocation="true">
+			<AppenderRef ref="FILE" />
+			<AppenderRef ref="CONSOLE" level="INFO" />
+		</AsyncRoot>
+	</Loggers>
+</Configuration>
